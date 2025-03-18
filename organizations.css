@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap');
+
+body {
+    
+    background-image: linear-gradient(to top, #8ff38c, #aee772, #c8da60, #ddcc55, #eebd53);
+    font-size: clamp(.8rem, 2.5vw, 1rem);
+    overflow-x: hidden;
+    
+}
+
+::-webkit-scrollbar {
+    width: 0;
+}
+
+.row {
+    /* gap: 1rem; */
+}
+
+html {
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+}
+
+.navbar-toggler .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e")
+}
+
+.row > * > * {
+    height: 100%;
+}
+
+.container-fluid > a {
+    font-family: 'DM Serif Display', serif;
+    color: black;
+    text-decoration: none;
+    font-size: clamp(1.875rem, 1.4286rem + 2.2321vw, 5rem);
+}
+
+.symbol {
+    color: white;
+}
+
+.nav-link {
+    font-family: 'Raleway', sans-serif;
+    font-size: clamp(0.9375rem, 0.8036rem + 0.6696vw, 1.875rem);
+    color: black;
+    padding: 20px;
+}
+
+#part-one {
+    height: 100vh;
+    scroll-snap-align: start;
+}
+
+#part-one h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(3.125rem, 1.7857rem + 6.6964vw, 12.5rem);
+    text-align: center;
+}
+
+#part-one p {
+    font-family: 'Raleway', sans-serif;
+    font-size: clamp(0.9375rem, 0.6696rem + 1.3393vw, 2.8125rem);
+    
+}
+
+.conteudo-inicial {
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.card {
+    margin: 10px;
+    box-shadow: 1px 1px 96px -7px rgba(0,0,0,0.46);
+    border-radius: 30px 30px 30px 30px;
+}
+
+.cards-org {
+    height: 100vh;
+    scroll-snap-align: start;
+
+    display: grid;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.card-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.25rem, 0.8036rem + 2.2321vw, 4.375rem);
+    text-align: center;
+}
+
+.card-body {
+    font-family: 'Raleway', sans-serif;
+    font-size: clamp(0.8125rem, 0.6607rem + 0.7589vw, 1.875rem);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.card .btn {
+    background-color: #1a5;
+}
+
+.footerClass {
+    padding: 30px;
+    font-family: 'Raleway', sans-serif;
+    text-align: center;
+    font-size: 12px;
+}

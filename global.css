@@ -1,0 +1,333 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap');
+
+
+body {
+    background-image: linear-gradient(to top, #1b2735, #19202b, #151a22, #111319, #090a0f);
+    color: white;
+}
+
+::-webkit-scrollbar {
+    width: 0;
+}
+
+.navbar-toggler .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e")
+}
+
+.offcanvas-title {
+    color: black
+}
+
+.nav-link  {
+    color: black;
+}
+
+.slogan>h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2.5rem, 1.9643rem + 2.6786vw, 6.25rem);
+    text-align: center;
+    padding-top: 15px;
+}
+
+.slogan>p {
+    font-family: 'Raleway', sans-serif;
+    font-size: clamp(0.8125rem, 0.7054rem + 0.5357vw, 1.5625rem);
+    padding: 15px;
+    text-align: center;
+}
+
+/* .descricao>h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.875rem, 1.6964rem + 0.8929vw, 3.125rem);
+    text-align: center;
+    padding-top: 15px;
+} */
+
+/* .descricao>p {
+    font-family: 'Raleway', sans-serif;
+    font-size: 15px;
+    padding-right: 20px;
+    padding-left: 20px;
+    text-align: center;
+} */
+
+.divbotao {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.divbotao .btn {
+    font-family: 'Raleway', sans-serif;
+    font-size: clamp(0.625rem, 0.5357rem + 0.4464vw, 1.25rem);    width: 30%;
+    background-color: white;
+    border: 1px solid;
+    color: black;
+}
+
+.container-fluid {
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.container-fluid>a {
+    font-family: 'DM Serif Display', serif;
+    color: white;
+    text-decoration: none;
+    font-size: 35px;
+}
+
+.symbol {
+    color: rgb(84, 84, 88);
+}
+
+.nav-link {
+    font-size: 18px;
+    color: black;
+    padding: 20px;
+}
+
+#carouseAutoplaying {
+    padding-top: 120px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    font-family: 'Raleway', sans-serif;
+    font-size: 13px;
+    color: black;
+}
+
+.modal-footer .btn {
+    width: 100%;
+}
+
+.footerClass {
+    font-family: 'Raleway', sans-serif;
+    text-align: center;
+    font-size: 12px;
+}
+
+.footerClass .nav-link {
+    font-size: 12px;
+}
+
+/*CSS DO CARDS*/
+
+/*CARDS*/
+/*CARDS*/
+#corpo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: orange;
+}
+
+.container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 1200px;
+    flex-wrap: wrap;
+}
+
+.container .card {
+    position: relative;
+    width: 280px;
+    height: 400px;
+    margin: 30px;
+    box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.5);
+    border-radius: 15px;
+    background: rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: linear-gradient(to left bottom, #1b2735, #19202b, #151a22, #111319, #090a0f);
+}
+
+
+.container .card .content {
+    padding: 10px;
+    text-align: center;
+    transform: translateY(100px);
+    opacity: 0;
+    transition: 0.5s;
+}
+
+.container .card:hover .content {
+    transform: translateY(0px);
+    opacity: 1;
+}
+
+.container .card>img {
+    transform: translateY(100px);
+    opacity: 1;
+    transition: 0.5s;
+    width: 200px;
+    display: flex;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 250px
+}
+
+.container .card:hover>img {
+    transform: translateY(0px);
+    opacity: 0;
+}
+
+.container .card .card3 {
+    width: 300px;
+}
+
+.container .card .content h2 {
+    position: absolute;
+    top: -80px;
+    right: 30px;
+    font-size: 8em;
+    color: rgba(255, 255, 255, 0.005);
+    pointer-events: none;
+}
+
+.container .card .content h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 40px;
+    color: white;
+}
+
+.container .card .content p {
+    font-size: 1em;
+    color: white;
+    font-weight: 300;
+}
+
+.container .card .content .botaocard {
+    background-color: white;
+    color: black;
+    font-family: 'Raleway', sans-serif;
+    text-decoration: none;
+
+}
+
+.container .card .content a {
+    position: relative;
+    display: inline-block;
+    padding: 8px 20px;
+    margin-top: 15px;
+    background: white;
+    color: black;
+    text-decoration: none;
+    border-radius: 20px;
+    font-weight: 500;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.container .card .content .botaocard {
+
+    background-color: white;
+    color: black;
+    font-family: 'Raleway', sans-serif;
+    text-decoration: none;
+    border-radius: 4px;
+    border: 1px solid #dcdcdc;
+    display: inline-block;
+    font-size: 15px;
+    padding: 10px 26px;
+    text-decoration: none;
+}
+
+.botaocard:hover {
+    background: linear-gradient(to bottom, #e9e9e9 5%, #f9f9f9 100%);
+    background-color: #e9e9e9;
+}
+
+.botaocard:active {
+    position: relative;
+    top: 1px;
+}
+
+#gifcard1 {
+    width: 600px;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.conteudo-modal {
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8)), url('resources/fundocard1.jpg');
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 100%;
+    position: relative;
+
+}
+
+.conteudo-modal2 {
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8)), url('resources/card2bg.jpg');
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.textocard2 {
+    text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.6);
+}
+
+
+.conteudo-modal3 {
+    background-image: url('resources/modal3.jpg');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.titulomodal {
+    text-align: center;
+    font-size: 40px;
+}
+
+.textomodal {
+    text-align: justify;
+    font-size: 15px;
+}
+
+.row {
+    
+    margin-top:0;
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.row > * {
+    
+    padding-right: 0;
+    padding-left: 0;
+    margin-top: 0;
+}
+
+.imagem-qmsomos {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.imagem-qmsomos img {
+    max-width: 600px;
+}
+
+.descricao-qmsomos > p {
+    font-family: 'Raleway', sans-serif;
+    font-size: clamp(0.8125rem, 0.7054rem + 0.5357vw, 1.5625rem);
+    text-align: center;
+    padding: 30px;
+}
