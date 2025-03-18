@@ -3,7 +3,7 @@
 
 body {
     
-    background-image: linear-gradient(to top, #8ff38c, #aee772, #c8da60, #ddcc55, #eebd53);
+    background-image: linear-gradient(to top, #1cc277, #1ea06e, #6c7c11, #ddcc55, #836015);
     font-size: clamp(.8rem, 2.5vw, 1rem);
     overflow-x: hidden;
     
@@ -13,9 +13,6 @@ body {
     width: 0;
 }
 
-.row {
-    /* gap: 1rem; */
-}
 
 html {
     scroll-snap-type: y mandatory;
