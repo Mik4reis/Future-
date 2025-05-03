@@ -1,0 +1,245 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Original variables */
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+    
+    /* EcoBloom custom variables */
+    --eco-gradient-day: linear-gradient(to bottom, #87ceeb, #4682b4);
+    --eco-gradient-night: linear-gradient(to bottom, #191970, #000080);
+    --eco-gradient-forest: linear-gradient(to bottom, #1b2735, #090a0f);
+    --eco-gradient-earth: linear-gradient(to bottom, #8b4513, #654321);
+    --eco-badge-shimmer: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.8) 50%, rgba(255,255,255,0) 100%);
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .glass-morphism {
+    @apply backdrop-blur-xl bg-white/5 border border-white/10 shadow-[0_4px_12px_-2px_rgba(0,0,0,0.3)];
+  }
+  
+  .text-gradient {
+    @apply bg-gradient-to-br from-white via-white/90 to-white/70 bg-clip-text text-transparent;
+  }
+  
+  .text-gradient-primary {
+    @apply bg-gradient-to-br from-green-400 via-green-300 to-green-200 bg-clip-text text-transparent;
+  }
+}
+
+/* EcoBloom custom styles */
+@layer components {
+  .bg-eco-leaf {
+    background-color: #28a745;
+  }
+  
+  .bg-eco-darkLeaf {
+    background-color: #1e7e34;
+  }
+  
+  .bg-eco-forest {
+    background-color: #1b2735;
+  }
+  
+  .bg-eco-water {
+    background-color: #1e90ff;
+  }
+  
+  .bg-eco-ground {
+    background-color: #8b4513;
+  }
+  
+  .bg-eco-lightGround {
+    background-color: #deb887;
+  }
+  
+  .bg-eco-sky {
+    background-color: #87ceeb;
+  }
+  
+  .bg-eco-deepSky {
+    background-color: #4682b4;
+  }
+  
+  .bg-eco-night {
+    background-color: #191970;
+  }
+  
+  .bg-eco-deepNight {
+    background-color: #000080;
+  }
+  
+  .bg-eco-gold {
+    background-color: #ffd700;
+  }
+  
+  .bg-eco-coral {
+    background-color: #ff6347;
+  }
+  
+  .bg-eco-sunset {
+    background-color: #ff4500;
+  }
+  
+  .text-eco-leaf {
+    color: #28a745;
+  }
+  
+  .text-eco-darkLeaf {
+    color: #1e7e34;
+  }
+  
+  .text-eco-water {
+    color: #1e90ff;
+  }
+  
+  .text-eco-gold {
+    color: #ffd700;
+  }
+  
+  .text-eco-coral {
+    color: #ff6347;
+  }
+}
+
+/* New animations */
+@keyframes sparkle {
+  0%, 100% { opacity: 0.2; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+@keyframes pulse-grow {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes wind {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(5px) rotate(2deg); }
+  50% { transform: translateX(-5px) rotate(-2deg); }
+  75% { transform: translateX(3px) rotate(1deg); }
+  100% { transform: translateX(0) rotate(0); }
+}
+
+.animate-sparkle {
+  animation: sparkle 2s infinite;
+}
+
+.animate-pulse-grow {
+  animation: pulse-grow 1.5s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.3; transform: scale(0.8); }
+}
+
+.animate-twinkle {
+  animation: twinkle 2s ease-in-out infinite;
+}
+
+.animate-wind {
+  animation: wind 2s ease-in-out;
+}
