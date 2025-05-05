@@ -112,6 +112,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",  # ou o domínio do seu frontend
+    "http://127.0.0.1:5500",
 ]
 
 
