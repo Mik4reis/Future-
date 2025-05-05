@@ -1,0 +1,24 @@
+<!-- Frontend/register.html -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cadastro</title>
+  <link rel="stylesheet" href="../css/auth.css" />
+</head>
+<body>
+  <div class="form-container">
+    <h2>Cadastro de Usuário</h2>
+    <form id="registerForm">
+      <input type="email" id="email" placeholder="Email" required />
+      <input type="text" id="username" placeholder="Usuário" required />
+      <input type="password" id="password" placeholder="Senha" required />
+      <input type="text" id="firstName" placeholder="Nome" required />
+      <input type="text" id="lastName" placeholder="Sobrenome" required />
+      <button type="submit">Cadastrar</button>
+    </form>
+    <p id="registerMessage"></p>
+  </div>
+  <script src="../js/register.js"></script>
+</body>
+</html>
