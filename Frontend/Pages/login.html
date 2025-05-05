@@ -1,0 +1,31 @@
+<!-- FRONTEND/Pages/login.html -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Login</title>
+  <link rel="stylesheet" href="../css/auth.css" />
+</head>
+<body>
+  <div class="form-container">
+    <h2>Login</h2>
+    <form id="loginForm">
+      <input type="email" id="email" placeholder="Email" required />
+      <input type="password" id="password" placeholder="Senha" required />
+      <button type="submit">Entrar</button>
+    </form>
+
+    <button id="registerBtn" class="secondary-button">Registrar</button>
+
+    <p id="loginMessage"></p>
+  </div>
+
+  <script src="../js/login.js"></script>
+  <script>
+    // Redireciona para página de cadastro
+    document.getElementById("registerBtn").addEventListener("click", () => {
+      window.location.href = "register.html"; // ou "../Pages/register.html" se necessário
+    });
+  </script>
+</body>
+</html>
