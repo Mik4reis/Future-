@@ -10,7 +10,10 @@
     <script src="doacao.js" defer></script>
     <link rel="icon" href="resources/refloresta.png" type="image/png">
     <title>Ecossistema Vivo: Doe para Preservar</title>
-</head>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    </head>
+    
 <body>
     <nav class="py-3 navbar fixed-top navbar-expand-lg auto-hiding-navbar">
         <div class="container-fluid">
@@ -85,5 +88,46 @@
     </section>
 
     <audio id="forest-sound" src="https://www.soundjay.com/nature/sounds/forest-01.mp3" preload="auto"></audio>
+
+    <!-- Sistema de Recompensas -->
+    <section id="rewards" class="text-center py-4">
+        <h3>Recompensas</h3>
+        <div id="badge-container"></div>
+    </section>
+    <!-- Ranking de Doadores -->
+    <section id="ranking" class="text-center py-4">
+        <h3>Top Doadores</h3>
+        <table id="ranking-table">
+            <thead><tr><th>Posição</th><th>Nome</th><th>Valor (R$)</th></tr></thead>
+            <tbody></tbody>
+        </table>
+    </section>
+
+
+<script>
+window.addEventListener('load', () => {
+    gsap.from("#intro h1", {
+        duration: 1.5,
+        opacity: 0,
+        y: -50,
+        ease: "power3.out"
+    });
+    gsap.from("#intro p", {
+        duration: 1.5,
+        opacity: 0,
+        y: 50,
+        delay: 0.3,
+        ease: "power3.out"
+    });
+    gsap.from("#controls", {
+        duration: 1.5,
+        opacity: 0,
+        y: 100,
+        delay: 0.6,
+        ease: "power2.out"
+    });
+});
+</script>
 </body>
+
 </html>

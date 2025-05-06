@@ -266,3 +266,93 @@ function updateCycle() {
 setInterval(updateCycle, 1000);
 renderEcosystem();
 updateStats(); // Inicializa as estatísticas
+
+// Confetti effect
+const confettiCanvas = document.createElement('canvas');
+confettiCanvas.id = 'confetti-canvas';
+document.body.appendChild(confettiCanvas);
+const confCtx = confettiCanvas.getContext('2d');
+function resizeConfetti() {
+    confettiCanvas.width = window.innerWidth;
+    confettiCanvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resizeConfetti);
+resizeConfetti();
+let confettiParticles = [];
+function initConfetti() {
+    confettiParticles = [];
+    for (let i = 0; i < 150; i++) {
+        confettiParticles.push({
+            x: Math.random() * confettiCanvas.width,
+            y: Math.random() * confettiCanvas.height - confettiCanvas.height,
+            r: Math.random() * 4 + 2,
+            d: Math.random() * 150 + 150,
+            color: `hsl(${Math.random() * 360},100%,50%)`,
+            tilt: Math.random() * 10 - 10,
+            tiltAngleIncremental: Math.random() * 0.07 + .05,
+            tiltAngle: 0
+        });
+    }
+}
+function drawConfetti() {
+    confCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+    confettiParticles.forEach((p, i) => {
+        confCtx.beginPath();
+        confCtx.lineWidth = p.r;
+        confCtx.strokeStyle = p.color;
+        p.tiltAngle += p.tiltAngleIncremental;
+        p.y += (Math.cos(p.d) + 3 + p.r/2) / 2;
+        p.x += Math.sin(p.d);
+        p.tilt = Math.sin(p.tiltAngle) * 15;
+        confCtx.moveTo(p.x + p.tilt + p.r/4, p.y);
+        confCtx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r/4);
+        confCtx.stroke();
+        if (p.y > confettiCanvas.height) {
+            confettiParticles[i].y = -10;
+            confettiParticles[i].x = Math.random() * confettiCanvas.width;
+        }
+    });
+    requestAnimationFrame(drawConfetti);
+}
+
+// Ranking & Rewards
+function updateRanking() {
+    const donors = JSON.parse(localStorage.getItem('donors') || '[]');
+    donors.sort((a, b) => b.amount - a.amount);
+    const tbody = document.querySelector('#ranking-table tbody');
+    tbody.innerHTML = '';
+    donors.slice(0, 5).forEach((d, i) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${i+1}</td><td>${d.name}</td><td>${d.amount.toFixed(2)}</td>`;
+        tbody.appendChild(tr);
+    });
+}
+function awardBadges(amount) {
+    const container = document.getElementById('badge-container');
+    container.innerHTML = '';
+    if (amount >= 1000) container.innerHTML += '<div class="badge" title="Patron">🏆</div>';
+    else if (amount >= 500) container.innerHTML += '<div class="badge" title="Gold">🥇</div>';
+    else if (amount >= 100) container.innerHTML += '<div class="badge" title="Silver">🥈</div>';
+    else if (amount >= 50) container.innerHTML += '<div class="badge" title="Bronze">🥉</div>';
+}
+
+// Integrate into processDonation
+const originalProcess = processDonation;
+processDonation = function() {
+    const name = prompt('Digite seu nome para o ranking:');
+    if (!name) return alert('Nome é necessário para o ranking!');
+    const donation = parseFloat(document.getElementById('doacao').value);
+    originalProcess();
+    // Save donor
+    const donors = JSON.parse(localStorage.getItem('donors') || '[]');
+    donors.push({ name: name.trim(), amount: donation });
+    localStorage.setItem('donors', JSON.stringify(donors));
+    updateRanking();
+    awardBadges(donation);
+    // Show confetti
+    initConfetti();
+    drawConfetti();
+};
+window.addEventListener('load', () => {
+    updateRanking();
+});
