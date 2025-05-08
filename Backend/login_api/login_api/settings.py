@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'drf_yasg',
     'users',
     'corsheaders',
+    'donations',
 ]
 
 MIDDLEWARE = [
@@ -76,6 +77,21 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+}
+
+SWAGGER_SETTINGS = {
+    'USE_SESSION_AUTH': False,
+    'SECURITY_DEFINITIONS': {
+        'Bearer': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header',
+            'description': 'Digite: Bearer <seu_token>',
+        }
+    },
 }
 
 WSGI_APPLICATION = 'login_api.wsgi.application'
