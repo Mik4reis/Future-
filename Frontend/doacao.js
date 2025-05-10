@@ -4,6 +4,28 @@ const scene = new THREE.Scene();
 const textureLoader = new THREE.TextureLoader();
 scene.background = new THREE.Color(0x87ceeb); // céu azul claro (inicial)
 scene.fog = new THREE.Fog(0x87ceeb, 30, 150); // neblina a partir de 30 até sumir em 150
+const arvoreList = []; // lista para armazenar referências
+
+const GRASS_COUNT = 1000;
+const grassGeometry = new THREE.PlaneGeometry(0.5, 1);
+const grassMaterial = new THREE.MeshBasicMaterial({ color: 0x228B22, side: THREE.DoubleSide });
+
+const grassMesh = new THREE.InstancedMesh(grassGeometry, grassMaterial, GRASS_COUNT);
+const dummy = new THREE.Object3D();
+
+for (let i = 0; i < GRASS_COUNT; i++) {
+    const x = Math.random() * 200 - 100;
+    const z = Math.random() * 200 - 100;
+    const y = 0;
+
+    dummy.position.set(x, y, z);
+    dummy.rotation.y = Math.random() * Math.PI;
+    dummy.updateMatrix();
+    grassMesh.setMatrixAt(i, dummy.matrix);
+}
+
+scene.add(grassMesh);
+
 
 // Estrelas - criadas como pontos no céu
 const starGeometry = new THREE.BufferGeometry();
@@ -84,6 +106,9 @@ function createTree(x = 0, z = 0) {
 
     scene.add(trunk);
     scene.add(foliage);
+
+    arvoreList.push({ trunk, foliage });
+
 }
 
 function animate() {
@@ -134,12 +159,92 @@ document.getElementById("doar-btn").addEventListener("click", () => {
         return;
     }
 
-    let arvores = Math.floor(valor / 7);
+    const arvores = Math.floor(valor / 7);
+    const positions = [];
+
     for (let i = 0; i < arvores; i++) {
         const x = Math.random() * 180 - 90;
         const z = Math.random() * 180 - 90;
-        createTree(x, z);
+        positions.push({ x, z });
     }
 
-    document.getElementById("story").textContent = `Você plantou ${arvores} árvore(s) virtuais com sua doação de R$${valor.toFixed(2)}.`;
+    fetch("http://127.0.0.1:8000/api/donations/", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+        },
+        body: JSON.stringify({ amount: valor, positions: positions })
+    })
+    .then(res => {
+        if (!res.ok) throw new Error("Erro ao registrar doação");
+        return res.json();
+    })
+    .then(data => {
+        console.log("Doação registrada:", data);
+
+        // ✅ Após registrar, atualiza floresta com dados do backend
+        carregarArvoresDoUsuario();
+
+        document.getElementById("story").textContent =
+            `Você plantou ${arvores} árvore(s) virtuais com sua doação de R$${valor.toFixed(2)}.`;
+
+        carregarRanking();
+    })
+    .catch(err => {
+        console.error("Erro ao doar:", err);
+        document.getElementById("story").textContent =
+            "Erro ao registrar doação. Verifique se você está logado.";
+    });
 });
+
+function carregarRanking() {
+    fetch("http://127.0.0.1:8000/api/donors/", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}` // se usar token JWT
+        }
+    })
+    .then(res => res.json())
+    .then(data => {
+        const lista = document.getElementById("ranking-list");
+        lista.innerHTML = ""; // limpa os placeholders
+
+        data.slice(0, 5).forEach((d, i) => {
+            const li = document.createElement("li");
+            li.textContent = `#${i + 1} ${d.first_name} ${d.last_name} - R$ ${parseFloat(d.total_donated).toFixed(2)}`;
+            lista.appendChild(li);
+        });
+    })
+    .catch(err => console.error("Erro ao carregar ranking:", err));
+}
+
+function carregarArvoresDoUsuario() {
+    fetch("http://127.0.0.1:8000/api/my-trees/", {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+        }
+    })
+    .then(res => res.json())
+    .then(data => {
+        // 🔄 Remove árvores anteriores da cena
+        arvoreList.forEach(({ trunk, foliage }) => {
+            scene.remove(trunk);
+            scene.remove(foliage);
+        });
+        arvoreList.length = 0;
+
+        // 🔁 Reconstrói com base nas posições do backend
+        const positions = data.positions || [];
+        positions.forEach(pos => createTree(pos.x, pos.z));
+    })
+    .catch(err => console.error("Erro ao carregar árvores do usuário:", err));
+}
+
+window.addEventListener("load", () => {
+    carregarRanking();
+    carregarArvoresDoUsuario(); // 🌱 novo carregamento por usuário
+});
+
+window.addEventListener("load", carregarRanking);
