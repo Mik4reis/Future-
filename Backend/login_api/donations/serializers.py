@@ -6,3 +6,9 @@ class DonationSerializer(serializers.ModelSerializer):
         model = Donation
         fields = ['id', 'amount', 'date']
         read_only_fields = ['id', 'date']
+
+class DonorSerializer(serializers.Serializer):
+    user_id       = serializers.IntegerField(source='user__id')
+    first_name    = serializers.CharField(source='user__first_name')
+    last_name     = serializers.CharField(source='user__last_name')
+    total_donated = serializers.DecimalField(source='total', max_digits=12, decimal_places=2)
