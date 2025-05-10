@@ -2,7 +2,6 @@ from rest_framework import viewsets, generics
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.db.models import Sum
-
 from rest_framework.permissions import IsAuthenticated
 from drf_yasg.utils import swagger_auto_schema
 
@@ -20,6 +19,7 @@ class DonationViewSet(viewsets.ModelViewSet):
         return Donation.objects.filter(user=self.request.user).order_by('-date')
 
     def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
     @swagger_auto_schema(auto_schema=None)
     @action(detail=False, methods=['get'])
