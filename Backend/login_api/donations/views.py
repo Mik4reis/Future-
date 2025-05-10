@@ -3,10 +3,7 @@ from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.db.models import Sum
-from rest_framework.permissions import IsAuthenticated, AllowAny
-from rest_framework import generics
 from .models import Donation
-from .serializers import DonationSerializer, DonorSerializer
 
 class DonationViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
@@ -16,7 +13,6 @@ class DonationViewSet(viewsets.ModelViewSet):
         return Donation.objects.filter(user=self.request.user).order_by('-date')
 
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
 
     @action(detail=False, methods=['get'])
     def last(self, request):
@@ -29,27 +25,3 @@ class DonationViewSet(viewsets.ModelViewSet):
     def total(self, request):
         agg = self.get_queryset().aggregate(total=Sum('amount'))
         return Response(agg)
-    
-    
-
-
-
-class DonorListView(generics.ListAPIView):
-    """
-    Retorna todos os usuários doadores com o total de
-    doações, ordenado do maior para o menor.
-    """
-    permission_classes = [IsAuthenticated]
-    serializer_class   = DonorSerializer
-
-    def get_queryset(self):
-        return (
-            Donation.objects
-            .values(
-                'user__id',
-                'user__first_name',
-                'user__last_name',
-            )
-            .annotate(total=Sum('amount'))
-            .order_by('-total')
-        )
