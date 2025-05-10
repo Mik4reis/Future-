@@ -103,6 +103,27 @@
         </table>
     </section>
 
+    <!-- Modal de Simulação de Pagamento -->
+<div id="modalDoacao" class="d-none position-fixed top-0 start-0 w-100 h-100 bg-dark bg-opacity-75 d-flex justify-content-center align-items-center" style="z-index: 1050;">
+    <div class="bg-white text-dark p-4 rounded" style="width: 350px;">
+      <h5 class="mb-3">Simular Pagamento</h5>
+      <form id="formDoacao">
+        <div class="mb-2">
+          <input type="text" class="form-control" placeholder="Nome no Cartão" required />
+        </div>
+        <div class="mb-2">
+          <input type="text" class="form-control" placeholder="Número do Cartão" required />
+        </div>
+        <div class="mb-2 d-flex gap-2">
+          <input type="text" class="form-control" placeholder="Validade (MM/AA)" required />
+          <input type="text" class="form-control" placeholder="CVV" required />
+        </div>
+        <button type="submit" class="btn btn-success w-100 mt-2">Confirmar Pagamento</button>
+      </form>
+      <button class="btn btn-link text-danger mt-2" onclick="fecharModal()">Cancelar</button>
+    </div>
+  </div>
+  
 
 <script>
 window.addEventListener('load', () => {

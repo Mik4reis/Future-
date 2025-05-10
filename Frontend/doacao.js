@@ -356,3 +356,29 @@ processDonation = function() {
 window.addEventListener('load', () => {
     updateRanking();
 });
+document.addEventListener("DOMContentLoaded", () => {
+    const btnDoar = document.getElementById("doar-btn");
+    const modal = document.getElementById("modalDoacao");
+    const form = document.getElementById("formDoacao");
+    const inputValor = document.getElementById("doacao");
+    const story = document.getElementById("story");
+  
+    btnDoar.addEventListener("click", () => {
+      modal.classList.remove("d-none");
+    });
+  
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      modal.classList.add("d-none");
+  
+      const valor = parseFloat(inputValor.value);
+      const arvores = Math.floor(valor / 75);
+      story.innerHTML = `Lyra: <em>"Sua doação de R$${valor.toFixed(2)} plantou ${arvores} árvores reais e virtuais!"</em>`;
+      alert("Pagamento simulado com sucesso!");
+    });
+  });
+  
+  function fecharModal() {
+    document.getElementById("modalDoacao").classList.add("d-none");
+  }
+  
