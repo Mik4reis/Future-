@@ -12,3 +12,8 @@ class DonorSerializer(serializers.Serializer):
     first_name    = serializers.CharField(source='user__first_name')
     last_name     = serializers.CharField(source='user__last_name')
     total_donated = serializers.DecimalField(source='total', max_digits=12, decimal_places=2)
+    
+class TreePositionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model  = Donation
+        fields = ('id', 'pos_x', 'pos_y', 'pos_z')

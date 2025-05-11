@@ -6,7 +6,7 @@ from rest_framework.permissions import IsAuthenticated
 from drf_yasg.utils import swagger_auto_schema
 
 from .models import Donation
-from .serializers import DonationSerializer, DonorSerializer
+from .serializers import DonationSerializer, DonorSerializer, TreePositionSerializer
 
 class DonationViewSet(viewsets.ModelViewSet):
     # swagger_schema = None           # ← aqui! ignora TODO esse viewset no Swagger
@@ -52,3 +52,15 @@ class DonorListView(generics.ListAPIView):
             .annotate(total=Sum('amount'))
             .order_by('-total')
         )
+
+class TreePositionListView(generics.ListAPIView):
+    """
+    GET /api/donations/positions/
+    Retorna só as posições das árvores do usuário.
+    """
+    permission_classes = [IsAuthenticated]
+    serializer_class   = TreePositionSerializer
+    
+
+    def get_queryset(self):
+        return Donation.objects.filter(user=self.request.user)

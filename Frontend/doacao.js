@@ -150,7 +150,7 @@ function updateSkyAndLight() {
 }
 
 // Alternar a cada 8 segundos
-setInterval(updateSkyAndLight, 5000);
+setInterval(updateSkyAndLight, 60000);
 
 document.getElementById("doar-btn").addEventListener("click", () => {
     const valor = parseFloat(document.getElementById("doacao").value);
@@ -199,7 +199,7 @@ document.getElementById("doar-btn").addEventListener("click", () => {
 });
 
 function carregarRanking() {
-    fetch("http://127.0.0.1:8000/api/donors/", {
+    fetch("http://localhost:8000/api/donors/", {
         method: "GET",
         headers: {
             "Content-Type": "application/json",

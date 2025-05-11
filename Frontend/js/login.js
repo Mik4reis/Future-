@@ -13,12 +13,17 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
     const response = await fetch("http://127.0.0.1:8000/api/users/login/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
     });
 
     const result = await response.json();
 
     if (response.ok) {
+      // supondo que o token venha em result.token ou result.access
+      const token = result.token || result.access;
+      // salva no localStorage
+      localStorage.setItem("authToken", token);
+
       msg.textContent = "Login realizado! Redirecionando...";
       msg.classList.add("success");
 
