@@ -150,7 +150,7 @@ function updateSkyAndLight() {
 }
 
 // Alternar a cada 8 segundos
-setInterval(updateSkyAndLight, 60000);
+setInterval(updateSkyAndLight, 100000);
 
 document.getElementById("doar-btn").addEventListener("click", () => {
     const valor = parseFloat(document.getElementById("doacao").value);
@@ -159,6 +159,12 @@ document.getElementById("doar-btn").addEventListener("click", () => {
         return;
     }
 
+    document.getElementById("payment-modal").classList.remove("hidden");
+
+});
+
+document.getElementById("confirm-payment").addEventListener("click", () => {
+    const valor = parseFloat(document.getElementById("doacao").value);
     const arvores = Math.floor(valor / 7);
     const positions = [];
 
@@ -172,7 +178,7 @@ document.getElementById("doar-btn").addEventListener("click", () => {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`
+            Authorization: `Bearer ${localStorage.getItem("authToken")}`
         },
         body: JSON.stringify({ amount: valor, positions: positions })
     })
@@ -182,20 +188,27 @@ document.getElementById("doar-btn").addEventListener("click", () => {
     })
     .then(data => {
         console.log("Doação registrada:", data);
-
-        // ✅ Após registrar, atualiza floresta com dados do backend
         carregarArvoresDoUsuario();
-
+        carregarRanking();
         document.getElementById("story").textContent =
             `Você plantou ${arvores} árvore(s) virtuais com sua doação de R$${valor.toFixed(2)}.`;
 
-        carregarRanking();
+        document.getElementById("payment-modal").classList.add("hidden");
+        document.getElementById("card-name").value = "";
+        document.getElementById("card-number").value = "";
+        document.getElementById("card-expiry").value = "";
+        document.getElementById("card-cvv").value = "";
     })
     .catch(err => {
         console.error("Erro ao doar:", err);
         document.getElementById("story").textContent =
             "Erro ao registrar doação. Verifique se você está logado.";
+        document.getElementById("payment-modal").classList.add("hidden");
     });
+});
+
+document.getElementById("cancel-payment").addEventListener("click", () => {
+    document.getElementById("payment-modal").classList.add("hidden");
 });
 
 function carregarRanking() {
@@ -203,7 +216,7 @@ function carregarRanking() {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}` // se usar token JWT
+            Authorization: `Bearer ${localStorage.getItem("authToken")}`
         }
     })
     .then(res => res.json())
@@ -221,9 +234,9 @@ function carregarRanking() {
 }
 
 function carregarArvoresDoUsuario() {
-    fetch("http://127.0.0.1:8000/api/my-trees/", {
+    fetch("http://127.0.0.1:8000/api/positions/", {
         headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`
+            Authorization: `Bearer ${localStorage.getItem("authToken")}`
         }
     })
     .then(res => res.json())
@@ -238,6 +251,9 @@ function carregarArvoresDoUsuario() {
         // 🔁 Reconstrói com base nas posições do backend
         const positions = data.positions || [];
         positions.forEach(pos => createTree(pos.x, pos.z));
+
+        console.log("Árvores carregadas:", positions.length); // debug opcional
+        atualizarMedalha(positions.length); // ✅ aqui sim
     })
     .catch(err => console.error("Erro ao carregar árvores do usuário:", err));
 }
@@ -248,3 +264,31 @@ window.addEventListener("load", () => {
 });
 
 window.addEventListener("load", carregarRanking);
+
+function atualizarMedalha(qtdArvores) {
+    const icon = document.getElementById("medalha-icon");
+    const label = document.getElementById("medalha-label");
+
+    if (qtdArvores >= 101) {
+        icon.textContent = "💎";
+        label.textContent = "Esmeralda";
+    } else if (qtdArvores >= 31) {
+        icon.textContent = "🥇";
+        label.textContent = "Ouro";
+    } else if (qtdArvores >= 11) {
+        icon.textContent = "🥈";
+        label.textContent = "Prata";
+    } else if (qtdArvores >= 1) {
+        icon.textContent = "🥉";
+        label.textContent = "Bronze";
+    } else {
+        icon.textContent = "🌱";
+        label.textContent = "Nenhuma ainda";
+    }
+}
+window.addEventListener("click", () => {
+    const audio = document.getElementById("ambient-sound");
+    if (audio && audio.paused) {
+        audio.play().catch(err => console.warn("Falha ao tocar som:", err));
+    }
+}, { once: true }); // só tenta uma vez
