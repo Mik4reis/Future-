@@ -19,7 +19,8 @@ class DonationViewSet(viewsets.ModelViewSet):
         return Donation.objects.filter(user=self.request.user).order_by('-date')
 
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+        positions = self.request.data.get("positions", [])
+        serializer.save(user=self.request.user, positions=positions)
 
     @swagger_auto_schema(auto_schema=None)
     @action(detail=False, methods=['get'])
@@ -54,13 +55,13 @@ class DonorListView(generics.ListAPIView):
         )
 
 class TreePositionListView(generics.ListAPIView):
-    """
-    GET /api/donations/positions/
-    Retorna só as posições das árvores do usuário.
-    """
     permission_classes = [IsAuthenticated]
-    serializer_class   = TreePositionSerializer
-    
 
-    def get_queryset(self):
-        return Donation.objects.filter(user=self.request.user)
+    def get(self, request):
+        donations = Donation.objects.filter(user=request.user)
+        all_positions = []
+
+        for d in donations:
+            all_positions.extend(d.positions)
+
+        return Response({"positions": all_positions})

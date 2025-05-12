@@ -126,3 +126,17 @@ class PasswordChangeView(APIView):
             {'detail': 'Senha atualizada com sucesso.'},
             status=status.HTTP_200_OK
         )
+    
+from donations.models import Donation
+from rest_framework.decorators import api_view, permission_classes
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def user_trees(request):
+    donations = Donation.objects.filter(user=request.user)
+    all_positions = []
+
+    for d in donations:
+        all_positions.extend(d.positions)
+
+    return Response({ "positions": all_positions })

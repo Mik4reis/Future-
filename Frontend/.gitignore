@@ -1,2 +1,34 @@
 .package.json
 .package-lock.json
+
+# Bytecode e caches Python
+__pycache__/
+*.py[cod]
+
+# Virtualenv
+venv/
+
+# Banco de dados local
+db.sqlite3
+
+# Arquivos de configuração/env
+.env
+.env.*
+
+# Arquivos de log
+*.log
+
+# Configurações do editor
+.vscode/
+.idea/
+
+# Django static/media gerados
+staticfiles/
+media/
+
+# Migrations que podem ser ignoradas (opcional, cuidado ao usar)
+# users/migrations/
+
+# Arquivos temporários do sistema
+.DS_Store
+Thumbs.db

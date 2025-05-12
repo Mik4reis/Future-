@@ -4,7 +4,7 @@ from .models import Donation
 class DonationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Donation
-        fields = ['id', 'amount', 'date']
+        fields = ['id', 'amount', 'date', 'positions']
         read_only_fields = ['id', 'date']
 
 class DonorSerializer(serializers.Serializer):
@@ -16,4 +16,5 @@ class DonorSerializer(serializers.Serializer):
 class TreePositionSerializer(serializers.ModelSerializer):
     class Meta:
         model  = Donation
-        fields = ('id', 'pos_x', 'pos_y', 'pos_z')
+        fields = ['positions']
+
